@@ -28,6 +28,9 @@ export default function RootLayout({
           <li>
             <Link href="/calculator">Calculator</Link>
           </li>
+          <li>
+            <Link href="/search">Search</Link>
+          </li>
           <li onClick={() => onClickHandler("/settings")}>Settings</li>
         </ul>
 
