@@ -25,6 +25,9 @@ export default function RootLayout({
           <li>
             <Link href="/dashboard">Dashboard</Link>
           </li>
+          <li>
+            <Link href="/calculator">Calculator</Link>
+          </li>
           <li onClick={() => onClickHandler("/settings")}>Settings</li>
         </ul>
 
