@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 type Props = {
   params: { slug: string };
@@ -18,20 +18,30 @@ const getDataRepos = async (params: string) => {
   return res.json();
 };
 
-const SearchDetails = async ({ params }: Props) => {
-  const dataUser = getDataUser(params.slug);
-  const dataRepos = getDataRepos(params.slug);
+const RepoList = async ({ slug }: any) => {
+  const dataRepos = await getDataRepos(slug);
 
-  const [user, repos] = await Promise.all([dataUser, dataRepos]);
+  return (
+    <>
+      <p>List Repository:</p>
+      <div>{JSON.stringify(dataRepos)}</div>
+    </>
+  );
+};
+
+const SearchDetails = async ({ params }: Props) => {
+  const dataUser = await getDataUser(params.slug);
 
   return (
     <div>
       <p>Details User: {params.slug}</p>
+      <div>{JSON.stringify(dataUser)}</div>
 
-      <div>{JSON.stringify(user)}</div>
-
-      <p>List Repository:</p>
-      <div>{JSON.stringify(repos)}</div>
+      <div style={{ marginTop: "10px" }}>
+        <Suspense fallback={<div>Sedang mengambil data...</div>}>
+          <RepoList slug={params.slug} />
+        </Suspense>
+      </div>
     </div>
   );
 };
